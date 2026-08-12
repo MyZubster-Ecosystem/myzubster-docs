@@ -1,7 +1,11 @@
 # Cookie Policy — MyZubster
 
 **Version:** 1.0  
+<<<<<<< HEAD
 **Effective Date:** 2026-07-31  
+=======
+**Effective Date:** 2026-08-01  
+>>>>>>> origin
 **Jurisdiction:** European Union (GDPR & ePrivacy) / Italy  
 **Platform:** MyZubster — Plant, Pet & Smart Garden Ecosystem
 
@@ -82,7 +86,11 @@ Under **GDPR**, the **ePrivacy Directive**, and **Italian law**, MyZubster users
 - **Withdraw Consent:** At any time, without affecting prior lawful processing.
 - **Lodge a Complaint:** With the Italian Data Protection Authority (Garante per la protezione dei dati personali) or your local EU supervisory authority.
 
+<<<<<<< HEAD
 **Contact:** privacy@myzubster.example (replace with actual contact before production use).
+=======
+**Contact:** privacy@myzubster.com (replace with actual contact before production use).
+>>>>>>> origin
 
 ---
 
@@ -161,4 +169,8 @@ In base al **GDPR**, alla **Direttiva ePrivacy** e al **diritto italiano**, gli 
 - **Revoca del Consenso:** In qualsiasi momento, senza pregiudicare la liceità del trattamento precedente.
 - **Presentare Reclamo:** Presso l’Autorità Garante per la protezione dei dati personali italiana o l’autorità di vigilanza locale dell’UE.
 
+<<<<<<< HEAD
 **Contatto:** privacy@myzubster.example (sostituire con il contatto effettivo prima dell’uso in produzione).
+=======
+**Contatto:** privacy@myzubster.com (sostituire con il contatto effettivo prima dell’uso in produzione).
+>>>>>>> origin

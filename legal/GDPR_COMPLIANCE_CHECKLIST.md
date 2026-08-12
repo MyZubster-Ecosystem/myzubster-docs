@@ -1,8 +1,13 @@
 # GDPR Compliance Checklist
 
 **Version:** 1.0.0  
+<<<<<<< HEAD
 **Effective Date:** 2026-07-31  
 **Last Updated:** 2026-07-31
+=======
+**Effective Date:** 2026-08-01  
+**Last Updated:** 2026-08-01
+>>>>>>> origin
 
 ## 1. Data Inventory
 
@@ -129,7 +134,11 @@
 Users may lodge complaints with:
 - **Italian Data Protection Authority (Garante):** https://www.garanteprivacy.it
 - **European Data Protection Board:** For cross-border issues
+<<<<<<< HEAD
 - **MyZubster Internal Appeal:** support@myzubster.example
+=======
+- **MyZubster Internal Appeal:** support@myzubster.com
+>>>>>>> origin
 
 ## 6. Data Protection Impact Assessment (DPIA)
 
@@ -250,8 +259,13 @@ The DPO reports directly to executive management and has:
 # Elenco di Verifica per la Conformità GDPR
 
 **Versione:** 1.0.0  
+<<<<<<< HEAD
 **Data di Entrata in Vigore:** 2026-07-31  
 **Ultimo Aggiornamento:** 2026-07-31
+=======
+**Data di Entrata in Vigore:** 2026-08-01  
+**Ultimo Aggiornamento:** 2026-08-01
+>>>>>>> origin
 
 ## 1. Inventario dei Dati
 
@@ -378,7 +392,11 @@ The DPO reports directly to executive management and has:
 Gli utenti possono presentare reclami a:
 - **Garante per la protezione dei dati personali:** https://www.garanteprivacy.it
 - **European Data Protection Board:** Per questioni transfrontaliere
+<<<<<<< HEAD
 - **Appello Interno MyZubster:** support@myzubster.example
+=======
+- **Appello Interno MyZubster:** support@myzubster.com
+>>>>>>> origin
 
 ## 6. Valutazione di Impatto sulla Protezione dei Dati (DPIA)
 
