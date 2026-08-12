@@ -1,8 +1,13 @@
 # PRIVACY POLICY
 
 **Version:** 1.0.0  
+<<<<<<< HEAD
+**Effective Date:** 2026-07-31  
+**Last Updated:** 2026-07-31
+=======
 **Effective Date:** 2026-08-01  
 **Last Updated:** 2026-08-01
+>>>>>>> origin
 
 ---
 
@@ -313,6 +318,8 @@ Indirizzo Postale: [Indirizzo della sede legale italiana]
 Riconosceremo la tua richiesta entro 5 giorni lavorativi e forniremo una risposta sostanziale entro 30 giorni. Se è necessaria la verifica, potremmo richiedere informazioni aggiuntive per confermare la tua identità prima di elaborare la tua richiesta.
 
 Per urgenze relative alla sicurezza, utilizza l'oggetto "URGENTE: Privacy/Sicurezza" nella tua email.
+<<<<<<< HEAD
+=======
 
 ## 11. Titolare del Trattamento dei Dati
 
@@ -325,3 +332,4 @@ Email: privacy@myzubster.com
 MyZubster è un progetto open-source gestito da Daniel Ioni, che agisce come Titolare del Trattamento ai sensi del GDPR.
 
 Per qualsiasi questione relativa alla protezione dei dati personali, è possibile contattare il Titolare all'indirizzo email sopra indicato.
+>>>>>>> origin

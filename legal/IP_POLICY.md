@@ -1,8 +1,13 @@
 # INTELLECTUAL PROPERTY POLICY
 
 **Version:** 1.0.0  
+<<<<<<< HEAD
+**Effective Date:** 2026-07-31  
+**Last Updated:** 2026-07-31
+=======
 **Effective Date:** 2026-08-01  
 **Last Updated:** 2026-08-01
+>>>>>>> origin
 
 ---
 

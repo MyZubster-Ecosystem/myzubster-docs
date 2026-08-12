@@ -1,8 +1,13 @@
 # CONTRIBUTOR LICENSE AGREEMENT
 
 **Version:** 1.0.0  
+<<<<<<< HEAD
+**Effective Date:** 2026-07-31  
+**Last Updated:** 2026-07-31
+=======
 **Effective Date:** 2026-08-01  
 **Last Updated:** 2026-08-01
+>>>>>>> origin
 
 ---
 
@@ -176,7 +181,11 @@ By continuing to submit Contributions after the effective date of any amendment,
 
 | Version | Effective Date | Changes |
 |---------|---------------|---------|
+<<<<<<< HEAD
+| 1.0.0 | 2026-07-31 | Initial release for MyZubster platform launch. |
+=======
 | 1.0.0 | 2026-08-01 | Initial release for MyZubster platform launch. |
+>>>>>>> origin
 
 ---
 
@@ -350,7 +359,11 @@ Continuando a presentare Contributi dopo la data di efficacia di qualsiasi modif
 
 | Versione | Data di Efficacia | Modifiche |
 |----------|-------------------|-----------|
+<<<<<<< HEAD
+| 1.0.0 | 2026-07-31 | Rilascio iniziale per il lancio della Piattaforma MyZubster. |
+=======
 | 1.0.0 | 2026-08-01 | Rilascio iniziale per il lancio della Piattaforma MyZubster. |
+>>>>>>> origin
 
 ---
 

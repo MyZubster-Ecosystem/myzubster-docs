@@ -4,7 +4,11 @@
 | Field | Value |
 |-------|-------|
 | **Document Version** | 1.0.0 |
+<<<<<<< HEAD
+| **Effective Date** | 2026-07-31 |
+=======
 | **Effective Date** | 2026-08-01 |
+>>>>>>> origin
 | **Data Controller** | MyZubster s.r.l. |
 | **Jurisdiction** | Italy (EU) — deployed on Italian VPS, subject to GDPR (Reg. EU 2016/679), the Italian Personal Data Protection Code (D.Lgs. 196/2003 as amended by D.Lgs. 101/2018), and applicable ePrivacy rules. |
 | **Contact DPO** | dpo@myzubster.example |
