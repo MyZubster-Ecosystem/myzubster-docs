@@ -50,6 +50,8 @@ MyZubster is a modular ecosystem of repositories that work together to build a d
 
 ## 🚀 Getting Started
 
+New here? Open the [interactive new-user guide](guides/interactive-new-user-guide.html) to choose a path, follow a progress checklist, explore guided demos, browse the FAQ, and reach Pytho/community support.
+
 ### Prerequisites
 - Node.js v18+
 - npm v9+

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MyZubster New User Guide</title>
+  <style>
+    :root { color-scheme: light; --ink:#17211b; --muted:#5f6e65; --line:#d9e2dc; --surface:#fff; --soft:#eef5f0; --green:#176b43; --green-dark:#0d4d30; --gold:#b8860b; --focus:#0b69c7; }
+    * { box-sizing: border-box; }
+    body { margin:0; color:var(--ink); background:#f6f8f6; font:16px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    button,a { font:inherit; }
+    a { color:var(--green-dark); }
+    a:focus-visible,button:focus-visible,input:focus-visible { outline:3px solid var(--focus); outline-offset:3px; }
+    header { background:var(--green-dark); color:#fff; padding:32px 20px; }
+    header div,main { max-width:960px; margin:0 auto; }
+    header h1 { margin:0 0 8px; font-size:clamp(2rem,5vw,3rem); }
+    header p { margin:0; max-width:680px; color:#dcebe2; }
+    main { padding:28px 20px 64px; }
+    .progress-shell { display:grid; grid-template-columns:1fr auto; gap:10px; align-items:center; margin-bottom:24px; }
+    progress { width:100%; height:14px; accent-color:var(--green); }
+    .panel { margin:0 0 18px; padding:22px; border:1px solid var(--line); border-radius:8px; background:var(--surface); }
+    .panel h2 { margin-top:0; }
+    .roles,.actions { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:12px; }
+    .role { min-height:48px; border:1px solid var(--line); border-radius:6px; background:#fff; color:var(--ink); cursor:pointer; padding:12px 14px; text-align:left; }
+    .role[aria-pressed="true"] { border-color:var(--green); background:var(--soft); box-shadow:inset 0 0 0 1px var(--green); }
+    .steps { display:grid; gap:12px; }
+    .step { display:grid; grid-template-columns:auto 1fr; gap:12px; padding:14px; border:1px solid var(--line); border-radius:6px; }
+    .step input { width:21px; height:21px; margin-top:3px; accent-color:var(--green); }
+    .step strong { display:block; }
+    .step span { color:var(--muted); }
+    .notice { border-left:4px solid var(--gold); padding:10px 14px; background:#fff9e8; }
+    .primary,.secondary { display:inline-flex; align-items:center; justify-content:center; min-height:44px; border-radius:6px; padding:9px 14px; text-decoration:none; cursor:pointer; }
+    .primary { border:1px solid var(--green); background:var(--green); color:#fff; }
+    .secondary { border:1px solid var(--line); background:#fff; color:var(--ink); }
+    details { padding:12px 0; border-top:1px solid var(--line); }
+    details:first-of-type { border-top:0; }
+    summary { cursor:pointer; font-weight:650; }
+    details p { margin-bottom:0; color:var(--muted); }
+    #completion { display:none; border-color:var(--green); background:var(--soft); }
+    #completion.visible { display:block; }
+    @media (max-width:520px) { .progress-shell { grid-template-columns:1fr; } .panel { padding:17px; } }
+  </style>
+</head>
+<body>
+  <header><div><h1>Start with MyZubster</h1><p>Choose a path, complete the checklist, and reach the right repository or community channel without guessing.</p></div></header>
+  <main>
+    <div class="progress-shell" aria-live="polite"><progress id="progress" value="0" max="4">0%</progress><strong id="progress-label">0 of 4 steps complete</strong></div>
+    <section class="panel" aria-labelledby="path-title">
+      <h2 id="path-title">1. Choose your path</h2>
+      <div class="roles" id="roles">
+        <button class="role" type="button" data-role="contributor" aria-pressed="true">Contribute code or docs</button>
+        <button class="role" type="button" data-role="community" aria-pressed="false">Join the community</button>
+        <button class="role" type="button" data-role="operator" aria-pressed="false">Run a MyZubster service</button>
+      </div>
+    </section>
+    <section class="panel" aria-labelledby="checklist-title"><h2 id="checklist-title">2. Follow the checklist</h2><div class="steps" id="steps"></div></section>
+    <section class="panel" aria-labelledby="demo-title">
+      <h2 id="demo-title">3. Open a guided demo</h2>
+      <p>These short walkthroughs use the ecosystem's existing documentation, so they stay useful as the project evolves.</p>
+      <div class="actions">
+        <a class="secondary" href="GETTING_STARTED_NO_XMR.md">Earn without buying crypto</a>
+        <a class="secondary" href="../docs/contributor-onboarding.md">Contributor workflow</a>
+        <a class="secondary" href="../docs/deployment.md">Deployment walkthrough</a>
+      </div>
+    </section>
+    <section class="panel" aria-labelledby="faq-title">
+      <h2 id="faq-title">4. Frequently asked questions</h2>
+      <details><summary>Do I need to buy XMR or MYZ before contributing?</summary><p>No. Start with an issue that matches your skills. Never pay a deposit or share wallet recovery words to claim a task.</p></details>
+      <details><summary>How do I know whether a reward is real?</summary><p>Check the issue's stated currency and acceptance criteria. Treat simulated transactions, internal ledgers, and payment promises as unconfirmed until an actual wallet transaction is verifiable.</p></details>
+      <details><summary>Where should I ask a technical question?</summary><p>Use the issue or pull request for work-specific questions. Use the community channel for general onboarding help.</p></details>
+      <details><summary>Can AI-assisted contributions be submitted?</summary><p>Follow the target repository's contribution rules and disclose material AI assistance. The contributor remains responsible for validation, security, and correctness.</p></details>
+    </section>
+    <section class="panel" aria-labelledby="help-title">
+      <h2 id="help-title">Need help from Pytho?</h2>
+      <p>Open the MyZubster community chat and include the repository, issue number, expected result, and what you already tried.</p>
+      <div class="actions">
+        <a class="primary" href="https://t.me/MyZubsterCommunity" target="_blank" rel="noopener noreferrer">Chat with the community</a>
+        <a class="secondary" href="https://github.com/orgs/MyZubster-Ecosystem/discussions" target="_blank" rel="noopener noreferrer">Open GitHub Discussions</a>
+      </div>
+    </section>
+    <section class="panel" id="completion" aria-live="polite"><h2>You're ready</h2><p>Your checklist is complete. Open the destination from your selected path and take the next concrete action.</p><a class="primary" id="destination" href="https://github.com/orgs/MyZubster-Ecosystem/repositories">Continue</a></section>
+    <p class="notice"><strong>Security:</strong> no maintainer, bot, or helper needs your password, private key, or wallet recovery phrase.</p>
+  </main>
+  <script>
+    const paths={contributor:{destination:'https://github.com/orgs/MyZubster-Ecosystem/repositories',label:'Browse ecosystem repositories',steps:[['Read the contribution rules','Review CONTRIBUTING.md in the target repository.'],['Choose one open issue','Confirm scope, reward currency, availability, and acceptance criteria.'],['Build and validate','Use a branch, add focused tests, and record the commands that pass.'],['Submit one linked PR','Reference the issue and disclose material AI assistance.']]},community:{destination:'https://t.me/MyZubsterCommunity',label:'Join the community chat',steps:[['Read the ecosystem overview','Learn what the robot, gateway, app, and documentation projects do.'],['Choose a useful activity','Documentation, verification, support, and issue triage are good starting points.'],['Protect your accounts','Never share credentials, private keys, or recovery phrases.'],['Introduce yourself','Mention your skills and the contribution you want to make.']]},operator:{destination:'../docs/deployment.md',label:'Open the deployment guide',steps:[['Choose a component','Select the gateway, marketplace, robot service, or another repository.'],['Check prerequisites','Confirm Node.js, database, network, and wallet requirements.'],['Use safe configuration','Keep secrets in environment variables and start with payments disabled.'],['Run health checks','Verify startup, logs, API health, and recovery behavior before production use.']]}};
+    const roles=document.querySelectorAll('.role');const steps=document.getElementById('steps');const progress=document.getElementById('progress');const progressLabel=document.getElementById('progress-label');const completion=document.getElementById('completion');const destination=document.getElementById('destination');let activeRole='contributor';
+    function updateProgress(){const checked=steps.querySelectorAll('input:checked').length;progress.value=checked;progressLabel.textContent=`${checked} of 4 steps complete`;completion.classList.toggle('visible',checked===4)}
+    function renderSteps(){const path=paths[activeRole];steps.replaceChildren(...path.steps.map(([title,description],index)=>{const label=document.createElement('label');label.className='step';label.innerHTML=`<input type="checkbox" aria-label="Complete step ${index+1}"><span><strong>${index+1}. ${title}</strong>${description}</span>`;return label}));destination.href=path.destination;destination.textContent=path.label;updateProgress()}
+    roles.forEach(role=>role.addEventListener('click',()=>{activeRole=role.dataset.role;roles.forEach(item=>item.setAttribute('aria-pressed',String(item===role)));renderSteps()}));steps.addEventListener('change',updateProgress);renderSteps();
+  </script>
+</body>
+</html>
