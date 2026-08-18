@@ -20,17 +20,7 @@ Each phase should produce a testable, documented result that integrates with the
 - Finalize the canonical ecosystem architecture in `ARCHITECTURE.md`.
 - Store architecture visuals under `assets/architecture/`.
 - Align repository ownership and submodule references with `MyZubster-Ecosystem`.
-- Define clear responsibilities for:
-  - `myzubster` — Core / Space Station
-  - `MyZubsterGateway` — API and payment gateway
-  - `MyZubster-Marketplace` — marketplace and bounty flows
-  - `MyZubster-App` — mobile client
-  - `MyZubster-Robot` — robotics and edge integration
-  - `myzubster-animal-registry` — animal registry
-  - `myzubster-verifier` — verification layer
-  - `myzubster-ai-bot` — AI assistant / automation layer
-  - `myzubster-docs` — documentation hub
-  - `myzubster-manuals` — operational manuals
+- Define clear responsibilities for Core, Gateway, Marketplace, App, Robot, registries, Verifier, AI Bot, Docs, and Manuals.
 - Document service boundaries and ownership rules.
 
 ### Exit criteria
@@ -74,6 +64,13 @@ Each phase should produce a testable, documented result that integrates with the
 - Define settlement state transitions and failure handling.
 - Document secrets management and environment separation.
 
+### Immediate Gateway checkpoint — PR #1349
+- From a maintainer session on PC/VPS, approve the currently pending GitHub Actions workflows for `MyZubsterGateway` PR #1349 (`Approve and run workflows`).
+- Allow all required CI/security workflows to execute against the latest escrow-lifecycle commits.
+- Review any failing job and fix the implementation or tests before merge; do not bypass required checks.
+- Re-review escrow persistence, transaction ownership, admin authorization, state-machine/idempotency behavior, failure/retry handling, and monetary validation after CI completes.
+- Merge PR #1349 only when required checks are green and the review blockers are resolved.
+
 ### Exit criteria
 - Core ↔ Gateway integration is covered by integration tests.
 - Duplicate payment events are handled safely.
@@ -86,8 +83,6 @@ Each phase should produce a testable, documented result that integrates with the
 
 **Goal:** establish the first verifiable real-world workflow.
 
-### Target flow
-
 **Registration → Evidence → Verification → Approval → Reward → Reporting**
 
 ### Deliverables
@@ -96,7 +91,7 @@ Each phase should produce a testable, documented result that integrates with the
 - Implement verifier decisions and audit history.
 - Link approved verification events to reward eligibility.
 - Start with animal registration as the first canonical use case.
-- Design schemas so the same pattern can later support plants, gardens, sensors, robots, and environmental activities.
+- Extend the same pattern to plants, gardens, sensors, robots, environmental activities, and field observations.
 
 ### Exit criteria
 - One registration can be created, reviewed, verified, and reported end to end.
@@ -111,27 +106,18 @@ Each phase should produce a testable, documented result that integrates with the
 
 ### Deliverables
 - User/account onboarding.
-- Wallet or payment identity integration where appropriate.
-- Registration submission.
-- Photo/evidence capture.
-- QR-based object or registration lookup.
+- Wallet/payment identity integration where appropriate.
+- Registration and photo/evidence submission.
+- QR-based object lookup.
 - Mission and bounty views.
-- Verification status tracking.
-- Reward history.
-- Notifications.
-- Map/location features where required and privacy-appropriate.
-
-### Exit criteria
-- A user can complete the primary registry workflow without directly using GitHub or backend tools.
-- App errors and offline/poor-network cases are handled predictably.
+- Verification status and reward history.
+- Notifications and privacy-appropriate map/location features.
 
 ---
 
 ## Phase 5 — Marketplace and bounty economy
 
 **Goal:** connect verified work to offers, bounties, services, escrow, and reputation.
-
-### Canonical lifecycle
 
 **Proposal → Validation → Approval → Funding → Activity → Verification → Reward → Reporting**
 
@@ -140,54 +126,29 @@ Each phase should produce a testable, documented result that integrates with the
 - Bounty lifecycle model.
 - Skills and service profiles.
 - Escrow/payment integration through Gateway.
-- Reputation based on verified activity, not only self-declared ratings.
-- Clear separation between proposed, funded, approved, completed, verified, and paid states.
-
-### Exit criteria
-- One bounty can move through the full lifecycle without manual database intervention.
-- Payment state and verification state are independently auditable.
+- Reputation based on verified activity.
+- Auditable separation of proposed, funded, approved, completed, verified, and paid states.
 
 ---
 
 ## Phase 6 — Robot and IoT
 
-**Goal:** integrate physical devices and field telemetry into the ecosystem.
+**Goal:** integrate physical devices and field telemetry.
 
 ### Deliverables
-- Define robot/device identity.
-- Standardize telemetry payloads.
-- Integrate Arduino/ESP-class environmental sensors where applicable.
-- Add device health and connectivity reporting.
-- Support field missions and evidence submission from devices.
-- Add remote command authorization and safety boundaries.
-- Document hardware/software compatibility.
-
-### Exit criteria
-- At least one real or controlled test device reports telemetry through the supported stack.
-- Device data is traceable to a registered device identity.
-- Remote actions are authenticated and logged.
+- Device identity and standardized telemetry.
+- Arduino/ESP-class environmental sensors where applicable.
+- Device health/connectivity reporting.
+- Field missions and device evidence submission.
+- Authenticated and logged remote commands.
 
 ---
 
 ## Phase 7 — AI Bot / Eva Ioni
 
-**Goal:** add intelligence above the verified platform rather than making AI a trusted system of record.
-
-### Deliverables
-- Telemetry summarization and anomaly assistance.
-- Contributor and user support.
-- Documentation assistance.
-- Suggested missions or workflows.
-- Repository and issue triage support.
-- Guardrails for sensitive, financial, and state-changing actions.
-
-### Architectural rule
+**Goal:** add intelligence above the verified platform rather than making AI the trusted system of record.
 
 AI may recommend and orchestrate, but critical economic, verification, and authorization decisions must remain enforceable through deterministic services and auditable rules.
-
-### Exit criteria
-- AI actions are permission-bounded and logged.
-- Critical state transitions do not depend solely on model output.
 
 ---
 
@@ -195,21 +156,9 @@ AI may recommend and orchestrate, but critical economic, verification, and autho
 
 **Goal:** validate one complete MyZubster use case in the real world.
 
-### Recommended approach
-Choose exactly one narrowly scoped pilot, for example:
-- animal registration and verification;
-- plant/tree registration;
-- community garden monitoring;
-- environmental sensor mission.
-
-### Required end-to-end path
+Candidate pilots include animal registration, plant/tree registration, community garden monitoring, environmental observations, and sensor missions.
 
 **App/Robot → Gateway → Core → Registry → Verifier → Reward → Reporting**
-
-### Exit criteria
-- The complete flow works with real users or real devices in a controlled pilot.
-- Operational failures, support needs, costs, and data quality are measured.
-- Pilot outcomes are documented before expansion.
 
 ---
 
@@ -218,56 +167,30 @@ Choose exactly one narrowly scoped pilot, for example:
 **Goal:** make the project repeatable, maintainable, and ready for broader participation.
 
 ### Deliverables
-- Stable versioned releases.
-- Public API/SDK documentation.
-- Contributor onboarding.
-- Maintainer and governance documentation.
-- Bounty operations and reporting.
-- Monitoring and alerting.
-- Backup and restore procedures.
-- Security review and dependency hygiene.
-- Deployment runbooks and rollback procedures.
+- Stable versioned releases and public API/SDK documentation.
+- Contributor onboarding and governance documentation.
+- Monitoring, backup/restore, security review, deployment and rollback runbooks.
 - Public ecosystem dashboard where appropriate.
 - International/pilot expansion only after the core flow is validated.
-
-### Exit criteria
-- A new contributor can understand, run, test, and contribute to the project from public documentation.
-- A deployment can be reproduced and rolled back.
-- Operational ownership is clear for every critical component.
 
 ---
 
 ## Cross-cutting tracks
 
-These workstreams apply throughout all phases:
-
 ### Security
-- No secrets, private keys, wallet seeds, or credentials in repositories.
-- Dependency scanning and patching.
-- Authentication and authorization testing.
-- Audit logging for critical operations.
+No secrets, private keys, wallet seeds, or credentials in repositories; maintain dependency scanning, authentication/authorization tests, and audit logging.
 
 ### Reliability
-- Health checks.
-- Structured logging.
-- Retries and timeout policies.
-- Backup and restore tests.
-- Failure-mode testing.
+Health checks, structured logging, retries/timeouts, backup/restore tests, and failure-mode testing.
 
 ### Documentation
-- Keep architecture, API contracts, onboarding, and operational docs synchronized with implementation.
-- Mark experimental, simulated, testnet, and production-ready functionality explicitly.
+Keep architecture, API contracts, onboarding, and operational docs synchronized with implementation; mark experimental, simulated, testnet, and production-ready functionality explicitly.
 
 ### Governance and claims
-- Clearly distinguish proposals from approved partnerships.
-- Clearly distinguish bounty creation, completion, verification, and actual payment.
-- Record externally verifiable approvals and funding separately from internal project plans.
+Distinguish proposals from approved partnerships and distinguish bounty creation, completion, verification, and actual payment.
 
 ### Testing
-- Unit tests for business logic.
-- Integration tests between repositories/services.
-- End-to-end tests for canonical workflows.
-- Pilot acceptance tests before scaling.
+Unit, integration, end-to-end, and pilot acceptance tests before scaling.
 
 ---
 
@@ -276,13 +199,14 @@ These workstreams apply throughout all phases:
 1. Finalize `ARCHITECTURE.md` and architecture assets.
 2. Merge repository ownership/submodule alignment after review.
 3. Audit Core startup, tests, CI, and environment configuration.
-4. Freeze the Core ↔ Gateway API contract.
-5. Implement and test the Registry ↔ Verifier workflow.
-6. Connect the mobile App to that first end-to-end workflow.
-7. Add Marketplace/bounty integration only after verification works reliably.
-8. Add Robot/IoT field integration.
-9. Add AI assistance with explicit permission boundaries.
-10. Run one narrow real-world pilot and use its findings to define the scaling plan.
+4. **PC/VPS: approve and run the pending workflows for MyZubsterGateway PR #1349; inspect results and merge only after required checks are green.**
+5. Freeze the Core ↔ Gateway API contract after the escrow lifecycle is validated.
+6. Implement and test the Registry ↔ Verifier workflow.
+7. Connect the mobile App to that first end-to-end workflow.
+8. Add Marketplace/bounty integration only after verification works reliably.
+9. Add Robot/IoT field integration.
+10. Add AI assistance with explicit permission boundaries.
+11. Run one narrow real-world pilot and use its findings to define the scaling plan.
 
 ---
 
