@@ -1,215 +1,226 @@
 # MyZubster Roadmap
 
-This roadmap defines the recommended execution order for the MyZubster ecosystem. The goal is to consolidate the existing architecture first, stabilize the MVP, validate a complete end-to-end workflow, and only then expand the ecosystem.
-
 ## Guiding principle
 
-Build one verified layer at a time:
+**Architecture → Core → Gateway/Payments → Tari/MYZ Wallet → Registry/Verifier → App → Marketplace → Robot/IoT → AI → Pilot → Scale**
 
-**Architecture → Core → Gateway → Registry/Verifier → App → Marketplace → Robot/IoT → AI → Pilot → Scale**
-
-Each phase should produce a testable, documented result that integrates with the previous phase. Avoid developing all repositories in parallel without a validated integration path.
+Every phase must finish with reproducible tests and documented evidence before the next layer is considered stable.
 
 ---
 
 ## Phase 0 — Architecture consolidation
 
-**Goal:** establish one canonical structure for the ecosystem.
+- Finalize `ARCHITECTURE.md`.
+- Upload architecture visuals under `assets/architecture/`.
+- Align repositories and submodules under `MyZubster-Ecosystem`.
+- Keep the Canva/Drive ecosystem visuals available for later project/video integration.
 
-### Deliverables
-- Finalize the canonical ecosystem architecture in `ARCHITECTURE.md`.
-- Store architecture visuals under `assets/architecture/`.
-- Align repository ownership and submodule references with `MyZubster-Ecosystem`.
-- Define clear responsibilities for Core, Gateway, Marketplace, App, Robot, registries, Verifier, AI Bot, Docs, and Manuals.
-- Document service boundaries and ownership rules.
-
-### Exit criteria
-- Architecture is documented and visible from the documentation hub.
-- Repository links and ownership references are consistent.
-- No major component has an ambiguous responsibility.
+**Exit:** canonical architecture documented and repository responsibilities unambiguous.
 
 ---
 
-## Phase 1 — Core / Space Station MVP
+## Phase 1 — Core / Space Station
 
-**Goal:** make `myzubster` the stable operational center of the ecosystem.
+- Stabilize backend, MongoDB, dashboard, telemetry, gardens, missions and simulator.
+- Validate clean-clone startup and Docker configuration.
+- Keep CI reproducible on supported Node versions.
+- Add health checks, structured logs and configuration validation.
 
-### Deliverables
-- Stabilize backend APIs and business logic.
-- Validate MongoDB persistence and environment configuration.
-- Stabilize dashboard and telemetry flows.
-- Validate gardens, missions, and simulator integration.
-- Standardize local development and Docker startup.
-- Maintain reproducible CI for supported Node.js versions.
-- Add health checks, error handling, logging, and configuration validation.
-
-### Exit criteria
-- Core can start from a clean clone using documented steps.
-- CI is green.
-- Core APIs have smoke tests.
-- Dashboard and simulator communicate reliably with the backend.
+**Exit:** Core CI green and smoke-tested.
 
 ---
 
-## Phase 2 — Gateway, identity, and payments
+## Phase 2 — Gateway, Payments and Tari/MYZ — CURRENT PRIORITY
 
-**Goal:** connect the Core to a well-defined external integration layer.
+### 2.1 MyZubsterGateway dependency/CI recovery
 
-### Deliverables
-- Define versioned API contracts between Core and Gateway.
-- Add authentication and authorization boundaries.
-- Define wallet/account identity model.
-- Validate XMR and MYZ payment flows in simulation/test environments first.
-- Implement webhook verification, idempotency, retries, and audit logs.
-- Define settlement state transitions and failure handling.
-- Document secrets management and environment separation.
+**Blocker:** Gateway CI currently fails before tests because `package.json` and `package-lock.json` are out of sync.
 
-### Immediate Gateway checkpoint — PR #1349
-- From a maintainer session on PC/VPS, approve the currently pending GitHub Actions workflows for `MyZubsterGateway` PR #1349 (`Approve and run workflows`).
-- Allow all required CI/security workflows to execute against the latest escrow-lifecycle commits.
-- Review any failing job and fix the implementation or tests before merge; do not bypass required checks.
-- Re-review escrow persistence, transaction ownership, admin authorization, state-machine/idempotency behavior, failure/retry handling, and monetary validation after CI completes.
-- Merge PR #1349 only when required checks are green and the review blockers are resolved.
+Actions:
+1. On PC/VPS checkout the affected Gateway branch.
+2. Use the project-supported Node/npm version.
+3. Run `npm install` to regenerate/synchronize `package-lock.json`.
+4. Review the lockfile diff and ensure only expected dependency resolution changes are present.
+5. Run `npm ci`, lint/typecheck and the complete local test suite from a clean state.
+6. Commit the corrected lockfile.
+7. Push and require GitHub CI, CI Boost, lint/typecheck and security checks to pass.
 
-### Exit criteria
-- Core ↔ Gateway integration is covered by integration tests.
-- Duplicate payment events are handled safely.
-- Failed or delayed providers do not corrupt state.
-- No production claim is made without a validated production environment.
+**Exit:** clean `npm ci` and all required Gateway checks green.
+
+### 2.2 Gateway escrow lifecycle — PR #1349
+
+Actions:
+1. From a maintainer session on PC/VPS, approve the pending GitHub Actions workflows (`Approve and run workflows`).
+2. Run all required CI/security workflows against the latest PR commit.
+3. Re-check escrow persistence and transaction ownership.
+4. Re-check admin authorization.
+5. Re-check state-machine transitions and idempotency.
+6. Re-check failure/retry handling.
+7. Re-check monetary validation.
+8. Do not bypass required checks.
+9. Merge PR #1349 only after required checks are green and review blockers are resolved.
+
+**Exit:** escrow lifecycle verified by CI and review.
+
+### 2.3 Tari repository Docker build recovery
+
+**Blocker:** the `Build docker images` workflow on the Tari `development` branch failed during the build environment setup for the escrow/robot-payment work.
+
+Actions:
+1. Re-open the failed workflow and retrieve the complete failing job log.
+2. Identify whether failure comes from runner/toolchain configuration, Docker/buildx, dependencies, repository state or the escrow changes.
+3. Reproduce locally/VPS where practical.
+4. Apply the smallest deterministic fix.
+5. Re-run the workflow.
+6. Verify Docker image creation and multi-architecture manifest generation.
+
+**Exit:** Tari Docker workflow green and reproducible.
+
+### 2.4 MYZ asset visibility/balance in Tari wallet — BLOCKER
+
+**Problem:** MYZ is not being loaded/displayed correctly in the Tari wallet. This must be fixed before the MYZ payment path is considered usable.
+
+Diagnostic plan:
+1. Identify the exact Tari wallet build/version and network used by the affected wallet.
+2. Confirm the expected MYZ asset/resource identifier from the authoritative deployment/configuration source; never guess or hard-code an unverified identifier.
+3. Confirm wallet and MYZ asset are on the same network/environment.
+4. Trace MYZ creation/mint/transfer output from the originating transaction through the Gateway/Tari integration.
+5. Verify the transaction is finalized and that the output belongs to the expected wallet/account.
+6. Inspect wallet asset discovery/import/indexing logic.
+7. Inspect balance query logic and any cache/indexer synchronization path.
+8. Check whether MYZ exists on-chain but is not rendered by the UI, or whether the wallet never received/indexed the asset.
+9. Check decimals/amount representation and resource-address mapping.
+10. Add diagnostic logging without exposing seeds, private keys or sensitive wallet credentials.
+
+Fix acceptance tests:
+- A controlled MYZ test amount is issued/transferred to a fresh test wallet.
+- The transaction reaches finality.
+- The wallet discovers/imports MYZ without manual database edits.
+- The displayed MYZ balance equals the authoritative balance.
+- Restart/resync does not lose the asset or duplicate the balance.
+- A second transfer updates the balance correctly.
+- Failure/retry does not double-credit MYZ.
+- Gateway/verifier records agree with wallet state.
+
+**Exit:** MYZ is reliably visible in Tari wallet and balance updates are proven end-to-end.
+
+### 2.5 End-to-end MYZ payment test
+
+After 2.1–2.4 are green, run one controlled canonical path:
+
+**MYZ issuance/source → Tari transaction → finality → wallet discovery → balance → Gateway → Verifier → application/reporting**
+
+Capture transaction IDs, timestamps, network/environment and verification result in a test report. Never commit wallet seeds or private keys.
+
+**Phase 2 exit:** Gateway CI green, escrow validated, Tari build green, MYZ wallet visibility fixed, and one MYZ end-to-end test passes without manual state manipulation.
 
 ---
 
 ## Phase 3 — Registry and Verifier
 
-**Goal:** establish the first verifiable real-world workflow.
-
 **Registration → Evidence → Verification → Approval → Reward → Reporting**
 
-### Deliverables
-- Define registry schemas and identifiers.
-- Establish evidence requirements.
-- Implement verifier decisions and audit history.
-- Link approved verification events to reward eligibility.
-- Start with animal registration as the first canonical use case.
-- Extend the same pattern to plants, gardens, sensors, robots, environmental activities, and field observations.
+- Define schemas and identifiers.
+- Maintain auditable verifier decisions.
+- Support animal registry plus plants, gardens, environmental observations, sensors and robots.
+- Connect reward eligibility only to deterministic verified state.
 
-### Exit criteria
-- One registration can be created, reviewed, verified, and reported end to end.
-- Every verification decision is auditable.
-- Reward eligibility is deterministic and documented.
+**Exit:** one registration completes the full audited workflow.
 
 ---
 
 ## Phase 4 — MyZubster App
 
-**Goal:** make the ecosystem usable from a mobile client.
-
-### Deliverables
 - User/account onboarding.
-- Wallet/payment identity integration where appropriate.
-- Registration and photo/evidence submission.
-- QR-based object lookup.
-- Mission and bounty views.
-- Verification status and reward history.
-- Notifications and privacy-appropriate map/location features.
+- Wallet/payment identity integration.
+- Photo/evidence capture and registration.
+- QR lookup, missions, verification status, rewards and notifications.
+- Privacy-appropriate maps/location.
+
+**Exit:** primary workflow usable without direct backend/GitHub interaction.
 
 ---
 
 ## Phase 5 — Marketplace and bounty economy
 
-**Goal:** connect verified work to offers, bounties, services, escrow, and reputation.
-
 **Proposal → Validation → Approval → Funding → Activity → Verification → Reward → Reporting**
 
-### Deliverables
-- Marketplace listings and requests.
-- Bounty lifecycle model.
-- Skills and service profiles.
-- Escrow/payment integration through Gateway.
-- Reputation based on verified activity.
-- Auditable separation of proposed, funded, approved, completed, verified, and paid states.
+- Listings, requests and bounty lifecycle.
+- Gateway escrow integration.
+- Verified reputation.
+- Independently auditable payment and verification states.
 
 ---
 
 ## Phase 6 — Robot and IoT
 
-**Goal:** integrate physical devices and field telemetry.
-
-### Deliverables
-- Device identity and standardized telemetry.
-- Arduino/ESP-class environmental sensors where applicable.
-- Device health/connectivity reporting.
-- Field missions and device evidence submission.
+- Device identity and telemetry schemas.
+- Environmental sensors and device health.
+- Field missions/evidence.
 - Authenticated and logged remote commands.
+- Connect robot-payment escrow only after Phase 2 is stable.
 
 ---
 
 ## Phase 7 — AI Bot / Eva Ioni
 
-**Goal:** add intelligence above the verified platform rather than making AI the trusted system of record.
-
-AI may recommend and orchestrate, but critical economic, verification, and authorization decisions must remain enforceable through deterministic services and auditable rules.
+AI can assist, summarize, propose and orchestrate, but critical economic, authorization and verification transitions must remain deterministic, permission-bounded and auditable.
 
 ---
 
-## Phase 8 — Real pilot
+## Phase 8 — Real-world pilot
 
-**Goal:** validate one complete MyZubster use case in the real world.
-
-Candidate pilots include animal registration, plant/tree registration, community garden monitoring, environmental observations, and sensor missions.
+Run one narrow pilot such as plant/tree registration, community garden monitoring, animal registration or environmental sensing.
 
 **App/Robot → Gateway → Core → Registry → Verifier → Reward → Reporting**
+
+Measure failures, support needs, costs and data quality before expansion.
 
 ---
 
 ## Phase 9 — Public ecosystem and scale
 
-**Goal:** make the project repeatable, maintainable, and ready for broader participation.
-
-### Deliverables
-- Stable versioned releases and public API/SDK documentation.
-- Contributor onboarding and governance documentation.
-- Monitoring, backup/restore, security review, deployment and rollback runbooks.
+- Stable releases and API/SDK documentation.
+- Contributor onboarding and governance.
+- Monitoring, backups, security review and rollback procedures.
 - Public ecosystem dashboard where appropriate.
-- International/pilot expansion only after the core flow is validated.
+- Expand only after the canonical flow is reproducible.
 
 ---
 
-## Cross-cutting tracks
+## Cross-cutting rules
 
 ### Security
-No secrets, private keys, wallet seeds, or credentials in repositories; maintain dependency scanning, authentication/authorization tests, and audit logging.
+Never commit secrets, wallet seeds, private keys or credentials. Audit authorization and critical economic operations.
 
 ### Reliability
-Health checks, structured logging, retries/timeouts, backup/restore tests, and failure-mode testing.
+Use health checks, structured logs, retries/timeouts, deterministic CI and failure-mode tests.
 
 ### Documentation
-Keep architecture, API contracts, onboarding, and operational docs synchronized with implementation; mark experimental, simulated, testnet, and production-ready functionality explicitly.
-
-### Governance and claims
-Distinguish proposals from approved partnerships and distinguish bounty creation, completion, verification, and actual payment.
+Keep architecture, contracts and operational docs synchronized with implementation. Clearly label simulation, testnet and production status.
 
 ### Testing
-Unit, integration, end-to-end, and pilot acceptance tests before scaling.
+Require unit, integration and end-to-end tests. Financial/payment state must never be declared working solely from UI behavior.
 
 ---
 
-## Near-term execution order
+## Immediate PC/VPS execution queue
 
-1. Finalize `ARCHITECTURE.md` and architecture assets.
-2. Merge repository ownership/submodule alignment after review.
-3. Audit Core startup, tests, CI, and environment configuration.
-4. **PC/VPS: approve and run the pending workflows for MyZubsterGateway PR #1349; inspect results and merge only after required checks are green.**
-5. Freeze the Core ↔ Gateway API contract after the escrow lifecycle is validated.
-6. Implement and test the Registry ↔ Verifier workflow.
-7. Connect the mobile App to that first end-to-end workflow.
-8. Add Marketplace/bounty integration only after verification works reliably.
-9. Add Robot/IoT field integration.
-10. Add AI assistance with explicit permission boundaries.
-11. Run one narrow real-world pilot and use its findings to define the scaling plan.
+1. Upload remaining architecture images/assets.
+2. Fix MyZubsterGateway `package-lock.json` synchronization and obtain green CI.
+3. Approve and execute PR #1349 workflows; fix any remaining escrow failures.
+4. Retrieve and diagnose the Tari Docker workflow failure.
+5. Restore a green Tari Docker build.
+6. Reproduce the MYZ-not-visible wallet bug with a controlled test wallet.
+7. Verify MYZ resource/asset identifier and network configuration.
+8. Trace transaction finality, wallet discovery/indexing and balance calculation.
+9. Implement the wallet/Gateway fix and regression tests.
+10. Run the complete MYZ end-to-end acceptance test.
+11. Only then freeze the Core ↔ Gateway ↔ Tari/MYZ payment contract.
+12. Continue Registry/Verifier and App integration.
 
 ---
 
 ## Definition of success
 
-MyZubster should be considered structurally mature when a contributor or user can trace a real action from creation through verification, settlement/reward where applicable, and reporting, with every critical state transition documented, testable, and auditable.
+MyZubster is structurally mature when a real action can be traced from creation through deterministic verification, payment/reward where applicable, wallet-visible settlement and reporting, with every critical transition testable and auditable.
