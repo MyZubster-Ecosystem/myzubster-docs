@@ -1,0 +1,9 @@
+WP,Scope,Lead / Candidate,Core responsibility,ROM budget (€),Main cost drivers,Status
+WP1,Management & governance,Eligible coordinator TBD,"Grant management, legal/admin governance, reporting, consortium coordination","€150,000","PM effort, admin, legal, reporting, meetings",CRITICAL
+WP2,Pilot site & water baseline,Futura / pilot host TBD,"Site access, operating baseline, field measurements, permissions, pilot execution","€180,000","Field staff, metering/sensors, setup, data collection",OPEN
+WP3,Circularity demonstration,Futura / Herambiente TBD,"Select measurable circularity use case; track reuse, repair, life extension and avoided replacements","€220,000","Operational trials, materials/components, field labour, instrumentation",OPEN
+WP4A,Digital MRV & data layer,MyZubster,"Platform integration, IoT/API ingestion, dashboard, audit trail, QA controls","€240,000","Development, integration, cloud/edge, telemetry, testing",OPEN
+WP4B,Scientific validation,UniBo / ARPAE TBD,"Validate baseline, normalization, KPI formulas, QA/QC and evidence methodology","€120,000","Research effort, methodology, analysis, validation",OPEN
+WP5,Replication & transfer,MyZubster / Herambiente TBD,"Replication toolkit, second-site assessment, transferability and stakeholder engagement","€180,000","Replication tests, documentation, workshops, second-site work",OPEN
+Cross-cutting,Call compliance & application evidence,Coordinator + MyZubster,"Sub-topic mapping, evidence pack, application consistency and final submission readiness","€60,000","Proposal support, compliance, documentation",OPEN
+TOTAL,Planning ROM — not an approved LIFE budget,,Indicative working envelope only; partner shares and eligibility still TBD,"€1,150,000",,ROM
