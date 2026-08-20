@@ -27,6 +27,9 @@ The digital platform is an enabling layer rather than the environmental objectiv
 - [`concept-note-public.md`](concept-note-public.md) — public-safe project positioning and scope
 - [`architecture-public.md`](architecture-public.md) — logical architecture and work-package model
 - [`mrv-framework.md`](mrv-framework.md) — baseline, data-quality and KPI framework
+- [`consortium-architecture-public.md`](consortium-architecture-public.md) — proposed consortium functions, roles and Work Packages
+- [`partner-landscape-public.md`](partner-landscape-public.md) — candidate partner landscape with all participation explicitly unconfirmed
+- [`outreach-template-public.md`](outreach-template-public.md) — generic public-safe partner outreach and call template
 
 ## Working LIFE alignment
 
@@ -40,14 +43,14 @@ This public directory intentionally excludes:
 
 - confidential or reserved meeting briefs;
 - private contact information;
-- unconfirmed institutional commitments;
-- negotiation notes;
-- internal partner outreach drafts;
+- unconfirmed institutional commitments presented as facts;
+- negotiation notes and internal partner scoring;
+- person-specific or confidential outreach drafts;
 - personal employment information;
 - unsupported quantitative environmental claims;
 - private datasets, credentials, infrastructure details or sensitive locations.
 
-Candidate partners, pilot hosts and institutional roles remain unconfirmed unless separately documented through formal public evidence.
+Candidate partners, pilot hosts and institutional roles remain unconfirmed unless separately documented through formal public evidence. The generic outreach template is intentionally stripped of personal names and confidential negotiation material.
 
 ## Source provenance
 
