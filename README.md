@@ -114,3 +114,11 @@ For security findings, use the repository's responsible-disclosure process rathe
 ## License
 
 Repository-specific licenses remain authoritative. Check the target repository before reusing code or documentation.
+
+---
+
+## Official project identity
+
+MyZubster is maintained within the [MyZubster-Ecosystem](https://github.com/MyZubster-Ecosystem) organization. Canonical public administrator/maintainer reference: **[Daniel Ioni (@DanielIoni-creator)](https://github.com/DanielIoni-creator)**.
+
+This link is a stable public project-identity reference. By itself, it is not a cryptographic signature or legal identity certification.
