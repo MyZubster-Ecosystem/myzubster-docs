@@ -22,19 +22,45 @@ Claims in historical issues or posts should not be interpreted as proof that a f
 
 | Repository | Responsibility | Positioning |
 |---|---|---|
-| [`myzubster`](https://github.com/MyZubster-Ecosystem/myzubster) | Core ecosystem, API/workflows, gardens, bounty/reward logic, public architecture | Primary source of truth |
+| [`myzubster`](https://github.com/MyZubster-Ecosystem/myzubster) | Core ecosystem, API/workflows, gardens, bounty/reward logic, public architecture, digital Time Machine | Primary source of truth / Time Machine MVP in draft PR |
 | [`MyZubsterGateway`](https://github.com/MyZubster-Ecosystem/MyZubsterGateway) | Gateway/integration and settlement boundary | Active validation; external settlement requires independent verification |
 | [`MyZubster-Marketplace`](https://github.com/MyZubster-Ecosystem/MyZubster-Marketplace) | Marketplace/service experiments | Development |
 | [`MyZubster-App`](https://github.com/MyZubster-Ecosystem/MyZubster-App) | Mobile/client application | Development |
 | [`MyZubsterWeb`](https://github.com/MyZubster-Ecosystem/MyZubsterWeb) | Web presence | Repository bootstrap/synchronization track |
 | [`myzubster-animal-registry`](https://github.com/MyZubster-Ecosystem/myzubster-animal-registry) | Animal/NFC registry experiment | Experimental; no blanket blockchain-storage claim |
-| [`MyZubster-Robot`](https://github.com/MyZubster-Ecosystem/MyZubster-Robot) | Robotics | Prototype/simulation/hardware-integration track |
+| [`MyZubster-Robot`](https://github.com/MyZubster-Ecosystem/MyZubster-Robot) | Robotics + Physical Time Machine demonstrator | Prototype/simulation/hardware-integration research |
 | [`EVA-IONI`](https://github.com/MyZubster-Ecosystem/EVA-IONI) | EVA IONI robotics/software | Experimental |
 | [`myzubster-space-station`](https://github.com/MyZubster-Ecosystem/myzubster-space-station) | Software vertical slice/telemetry | MVP track; not a physical-space-station claim |
 | [`myzubster-manuals`](https://github.com/MyZubster-Ecosystem/myzubster-manuals) | Manuals/runbooks | Documentation bootstrap |
 | `ai-automation`, `myzubster-ai-bot`, `myzubster-escrow-api`, `myzubster-verifier` | Internal service boundaries | Private/internal tracks |
 
 The complete repository map, including `myzubster-platform`, `MyZubster-Robot-Stack` and the external/upstream `tari` dependency, is maintained in [`docs/ECOSYSTEM.md`](https://github.com/MyZubster-Ecosystem/myzubster/blob/main/docs/ECOSYSTEM.md).
+
+## MyZubster Time Machine program
+
+The Time Machine program has two explicitly separated layers.
+
+### Digital Time Machine
+
+The core [`myzubster`](https://github.com/MyZubster-Ecosystem/myzubster) repository contains the draft implementation in [PR #560](https://github.com/MyZubster-Ecosystem/myzubster/pull/560). It records timestamped snapshots with provenance and SHA-256 integrity metadata, supports plants/sensors/maps/robots as canonical domains, and provides a read-only visual timeline/map at `/time-machine`.
+
+The digital layer reconstructs **recorded historical project state**. It does not claim to change physical history, and missing historical states must not be invented or interpolated as facts.
+
+### Physical Time Machine Demonstrator v1
+
+The [`MyZubster-Robot`](https://github.com/MyZubster-Ecosystem/MyZubster-Robot) repository tracks a physical, reproducible temporal-measurement apparatus under [Epic #135](https://github.com/MyZubster-Ecosystem/MyZubster-Robot/issues/135).
+
+Workstreams:
+
+- [#136 — precision clock and drift measurement](https://github.com/MyZubster-Ecosystem/MyZubster-Robot/issues/136)
+- [#137 — propagation delay and time-of-flight](https://github.com/MyZubster-Ecosystem/MyZubster-Robot/issues/137)
+- [#138 — synchronized physical sensor-state recorder](https://github.com/MyZubster-Ecosystem/MyZubster-Robot/issues/138)
+- [#139 — robot/device telemetry bridge and historical replay](https://github.com/MyZubster-Ecosystem/MyZubster-Robot/issues/139)
+- [#140 — completion bounty](https://github.com/MyZubster-Ecosystem/MyZubster-Robot/issues/140)
+
+The physical demonstrator is scientifically scoped to measurable phenomena such as clock drift, synchronization offset, propagation delay/time-of-flight and timestamped sensor/robot telemetry. It **does not claim backward time travel, faster-than-light propagation or alteration of past physical events**.
+
+Bounty #140 is currently **UNFUNDED for external settlement**. Its stated **2,500 MYZ** is an internal MyZubster reward/accounting amount that may be recorded only after successful verification; it is not a guaranteed cash/XMR/token payment or a claim of on-chain value.
 
 ## Bounty system
 
@@ -72,7 +98,8 @@ Documentation in every MyZubster repository should:
 2. distinguish `production`, `development`, `testnet`, `simulation`, `experimental` and `proposed` states;
 3. avoid treating historical bounty amounts as proof of payment;
 4. keep security-sensitive data and secrets out of repositories;
-5. link to the canonical architecture and bounty policy rather than redefining incompatible rules locally.
+5. link to the canonical architecture and bounty policy rather than redefining incompatible rules locally;
+6. for Time Machine material, distinguish directly recorded physical measurements, public recorded state, derived values and simulation.
 
 ## Getting started
 
